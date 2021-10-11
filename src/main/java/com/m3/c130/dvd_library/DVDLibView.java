@@ -26,8 +26,9 @@ public class DVDLibView {
         io.print("6. Save Library to memory");
         io.print("7. Load Library from memory");
         io.print("8. Remove Library from memory");
+        io.print("9. Search Library for Dvd by title");
         io.print("0. Exit");
-        return io.readInt("Enter an integer between 0 - 8:", 0, 8);
+        return io.readInt("Enter an integer between 0 - 9:", 0, 9);
 
     }
 
@@ -166,6 +167,20 @@ public class DVDLibView {
         } else {
             io.print("Unable to delete library, please try again later");
         }
+    }
+
+    public void displayDVDSearchBanner() {
+        io.print("--------------------");
+        io.print("-- Search Library --");
+        io.print("--------------------");
+    }
+
+    public String getQuery() {
+        return io.readString("Please enter the Title of the dvd you are looking for:");
+    }
+
+    public void queryUnsuccessful() {
+        io.print("Library does not contain query");
     }
 
     public void waitForKey() {

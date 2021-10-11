@@ -1,9 +1,7 @@
 package com.m3.c130.dvd_library;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class DVDDaoFileImpl implements DVDLibDao {
 
@@ -99,5 +97,14 @@ public class DVDDaoFileImpl implements DVDLibDao {
             }
         }
         return textFiles;
+    }
+
+    @Override
+    public Map<String, DVD> getDVDTitleMap() {
+        Map<String, DVD> map = new HashMap<>();
+        for (DVD dvd : dvds) {
+            map.put(dvd.getTitle(), dvd);
+        }
+        return map;
     }
 }

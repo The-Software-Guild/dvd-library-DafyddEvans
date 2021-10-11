@@ -17,7 +17,7 @@ public class DVD {
 
     public DVD(String title, String releaseDate, String mPAA, String director, String studio, String userRating) throws ParseException {
         this.title = emptyCheck(title);
-        this.releaseDate = ft.parse(emptyCheck(releaseDate));
+        this.releaseDate = ft.parse(dateCheck(releaseDate));
         this.mPAA = emptyCheck(mPAA);
         this.director = emptyCheck(director);
         this.studio = emptyCheck(studio);
@@ -30,6 +30,14 @@ public class DVD {
 
     private String emptyCheck(String str) {
         return (!str.equals("") ? str : " ");
+    }
+
+    private String dateCheck(String releaseDate) {
+        if (releaseDate.equals("") || releaseDate.equals(" ")) {
+            return "01/01/1900";
+        } else {
+            return releaseDate;
+        }
     }
 
     public String getTitle() {
@@ -45,7 +53,7 @@ public class DVD {
     }
 
     public void setReleaseDate(String releaseDate) throws ParseException {
-        this.releaseDate = ft.parse(emptyCheck(releaseDate));
+        this.releaseDate = ft.parse(dateCheck(releaseDate));
     }
 
     public String getmPAA() {

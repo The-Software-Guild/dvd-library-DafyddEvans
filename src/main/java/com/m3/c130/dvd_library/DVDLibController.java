@@ -1,7 +1,9 @@
 package com.m3.c130.dvd_library;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DVDLibController {
 
@@ -43,6 +45,9 @@ public class DVDLibController {
                     break;
                 case 8:
                     deleteDVDLib();
+                    break;
+                case 9:
+                    searchLib();
                     break;
                 case 0:
                     running = exit();
@@ -196,6 +201,18 @@ public class DVDLibController {
             view.noLibFound();
         }
 
+    }
+
+    private void searchLib() {
+        Map<String, DVD> dvds = dao.getDVDTitleMap();
+        List<String> dvdTitles = new ArrayList<>(dvds.keySet());
+        view.displayDVDSearchBanner();
+        String query = view.getQuery().toLowerCase();
+        if (dvdTitles.contains(query)) {
+            view.displayDVD(dvds.get(query));
+        } else {
+            view.queryUnsuccessful();
+        }
     }
 
     private boolean exit() {

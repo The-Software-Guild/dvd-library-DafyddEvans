@@ -1,6 +1,7 @@
 package com.m3.c130.dvd_library;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DVDLibDao {
 
@@ -21,4 +22,6 @@ public interface DVDLibDao {
     boolean deleteDVDLib(String fileName);
 
     List<String> listFiles();
+
+    Map<String, DVD> getDVDTitleMap();
 }
