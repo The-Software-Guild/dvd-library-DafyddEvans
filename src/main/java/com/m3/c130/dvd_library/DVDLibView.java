@@ -9,6 +9,8 @@ public class DVDLibView {
     private final UserIO io;
     private final String[] iVariables = {"Title", "Release Date (dd/mm/yyyy)",
             "MPAA", "Director", "Studio", "User Rating"};
+    private final String[] editVariables = {"Release Date (dd/mm/yyyy)",
+            "MPAA", "Director", "Studio", "User Rating"};
 
     public DVDLibView(UserIO io) {
         this.io = io;
@@ -40,7 +42,9 @@ public class DVDLibView {
 
     public void displayLibContent(List<DVD> lst) {
         io.print("List of DVDs in current library:");
-        io.printList(lst);
+        for (int i = 0; i < lst.size(); i++) {
+            io.print(i + 1 + ": " + lst.get(i).getTitle());
+        }
     }
 
     public void displayEntryBanner() {
@@ -50,7 +54,7 @@ public class DVDLibView {
     }
 
     public void displayDVD(DVD dvd) {
-        io.print(dvd.getTitle());
+        io.print(dvd);
     }
 
     public void displayEditDVDBanner() {
@@ -60,13 +64,13 @@ public class DVDLibView {
     }
 
     public int getEditDVDSelection() {
-        List<String> lst = Arrays.asList(iVariables);
+        List<String> lst = Arrays.asList(editVariables);
         io.printList(lst);
         return getSelectionFromList(lst);
     }
 
     public String getDVDEdit(int selection) {
-        return io.readString("What would you like to change " + iVariables[selection - 1] + " to? : ");
+        return io.readString("What would you like to change " + editVariables[selection - 1] + " to? : ");
     }
 
     public void editSuccess(boolean bool) {

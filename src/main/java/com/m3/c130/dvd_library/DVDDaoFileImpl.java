@@ -103,7 +103,7 @@ public class DVDDaoFileImpl implements DVDLibDao {
     public Map<String, DVD> getDVDTitleMap() {
         Map<String, DVD> map = new HashMap<>();
         for (DVD dvd : dvds) {
-            map.put(dvd.getTitle().toLowerCase(), dvd);
+            map.put(dvd.getTitle(), dvd);
         }
         return map;
     }

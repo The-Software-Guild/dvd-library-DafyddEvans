@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class DVDLibController {
 
-    private UserIO io = new UserIOImpl();
     private final DVDLibView view;
     private final DVDLibDao dao;
 
@@ -65,7 +64,7 @@ public class DVDLibController {
         return view.menuSelection();
     }
 
-    private List<DVD> displayLibrary() {
+    private void displayLibrary() {
         List<DVD> content = dao.getDVDList();
         view.displayLibContentBanner();
         if (content.size() > 0) {
@@ -73,7 +72,6 @@ public class DVDLibController {
         } else {
             view.libEmpty();
         }
-        return content;
     }
 
     private int displayEntry() {
@@ -106,25 +104,22 @@ public class DVDLibController {
     private boolean makeChange(DVD dvd, int selection, String change) {
         switch (selection) {
             case 1:
-                dvd.setTitle(change);
-                break;
-            case 2:
                 try {
                     dvd.setReleaseDate(change);
                     break;
                 } catch (ParseException e) {
                     return false;
                 }
-            case 3:
+            case 2:
                 dvd.setmPAA(change);
                 break;
-            case 4:
+            case 3:
                 dvd.setDirector(change);
                 break;
-            case 5:
+            case 4:
                 dvd.setStudio(change);
                 break;
-            case 6:
+            case 5:
                 dvd.setUserRating(change);
                 break;
             default:
@@ -179,7 +174,6 @@ public class DVDLibController {
             view.displayLibList(libList);
             int selection = view.getSelectionFromList(libList);
             if (selection > 0) {
-                io.print(libList.get(selection - 1));
                 view.loadSuccess(dao.loadDVD(libList.get(selection - 1)));
             }
         } else {
@@ -194,7 +188,6 @@ public class DVDLibController {
             view.displayLibList(libList);
             int selection = view.getSelectionFromList(libList);
             if (selection > 0) {
-                io.print(libList.get(selection - 1));
                 view.libDeleteSuccess(dao.deleteDVDLib(libList.get(selection - 1)));
             }
         } else {
@@ -207,7 +200,7 @@ public class DVDLibController {
         Map<String, DVD> dvds = dao.getDVDTitleMap();
         List<String> dvdTitles = new ArrayList<>(dvds.keySet());
         view.displayDVDSearchBanner();
-        String query = view.getQuery().toLowerCase();
+        String query = view.getQuery();
         if (dvdTitles.contains(query)) {
             view.displayDVD(dvds.get(query));
         } else {

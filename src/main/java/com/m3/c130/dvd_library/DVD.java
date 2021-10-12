@@ -3,6 +3,7 @@ package com.m3.c130.dvd_library;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class DVD {
 
@@ -96,22 +97,12 @@ public class DVD {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof DVD)) {
-            return false;
-        }
-        DVD dvd = (DVD) obj;
-        return title.equals(dvd.title) &&
-                releaseDate.equals(dvd.releaseDate) &&
-                mPAA.equals(dvd.mPAA) &&
-                director.equals(dvd.director) &&
-                studio.equals(dvd.studio) &&
-                userRating.equals(dvd.userRating);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DVD dvd = (DVD) o;
+        return Objects.equals(title, dvd.title);
     }
-
 }
 
 
