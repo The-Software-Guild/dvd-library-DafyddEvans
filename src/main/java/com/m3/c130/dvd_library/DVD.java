@@ -88,17 +88,11 @@ public class DVD {
         this.userRating = userRating;
     }
 
-
-    public String fullDesc() {
+    @Override
+    public String toString() {
         return String.format("Title: %s%nRelease Date: %s%nMPAA Rating: " +
                         "%s%nDirector: %s%nStudio: %s%nUser Rating: %s%n",
                 title, getReleaseDate(), mPAA, director, studio, userRating);
-    }
-
-
-    @Override
-    public String toString() {
-        return title;
     }
 
     @Override

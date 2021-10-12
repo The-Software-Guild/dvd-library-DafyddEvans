@@ -50,7 +50,7 @@ public class DVDLibView {
     }
 
     public void displayDVD(DVD dvd) {
-        io.print(dvd.fullDesc());
+        io.print(dvd.getTitle());
     }
 
     public void displayEditDVDBanner() {
