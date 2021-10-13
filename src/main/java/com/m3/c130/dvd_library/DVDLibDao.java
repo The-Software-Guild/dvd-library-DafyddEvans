@@ -11,9 +11,7 @@ public interface DVDLibDao {
 
     List<DVD> getDVDList();
 
-    DVD findDVD(String name);
-
-    boolean editDVD(DVD dvd);
+    boolean editDVD(int dvdSelection, int selection, String change);
 
     boolean loadDVD(String fileName);
 

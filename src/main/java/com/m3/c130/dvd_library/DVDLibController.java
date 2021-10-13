@@ -1,6 +1,5 @@
 package com.m3.c130.dvd_library;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -89,43 +88,15 @@ public class DVDLibController {
     }
 
     private void editDVD() {
-        List<DVD> content = dao.getDVDList();
         int dvdSelection = displayEntry();
         if (dvdSelection > 0) {
             view.displayEditDVDBanner();
             int selection = view.getEditDVDSelection();
             if (selection > 0) {
                 String change = view.getDVDEdit(selection);
-                view.editSuccess(makeChange(content.get(dvdSelection - 1), selection, change));
+                view.editSuccess(dao.editDVD(dvdSelection - 1, selection, change));
             }
         }
-    }
-
-    private boolean makeChange(DVD dvd, int selection, String change) {
-        switch (selection) {
-            case 1:
-                try {
-                    dvd.setReleaseDate(change);
-                    break;
-                } catch (ParseException e) {
-                    return false;
-                }
-            case 2:
-                dvd.setmPAA(change);
-                break;
-            case 3:
-                dvd.setDirector(change);
-                break;
-            case 4:
-                dvd.setStudio(change);
-                break;
-            case 5:
-                dvd.setUserRating(change);
-                break;
-            default:
-                return false;
-        }
-        return true;
     }
 
     private void addDVD() {
@@ -162,7 +133,6 @@ public class DVDLibController {
 
     private void saveLibrary() {
         view.displaySaveBanner();
-        // select from list or from new filename?
         String fileName = view.getFileName();
         dao.saveDVD(fileName);
     }

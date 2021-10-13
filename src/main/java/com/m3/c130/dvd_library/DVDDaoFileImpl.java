@@ -1,13 +1,14 @@
 package com.m3.c130.dvd_library;
 
 import java.io.*;
+import java.text.ParseException;
 import java.util.*;
 
 public class DVDDaoFileImpl implements DVDLibDao {
 
     private final String path = "save_files/";
     private final File curDir = new File("./" + path);
-    private final String regex = "::";
+    private final String DELIMITER = "::";
     private List<DVD> dvds = new ArrayList<>();
 
     @Override
@@ -30,13 +31,32 @@ public class DVDDaoFileImpl implements DVDLibDao {
     }
 
     @Override
-    public DVD findDVD(String name) {
-        return null;
-    }
-
-    @Override
-    public boolean editDVD(DVD dvd) {
-        return false;
+    public boolean editDVD(int dvdSelection, int selection, String change) {
+        DVD dvd = dvds.get(dvdSelection);
+        switch (selection) {
+            case 1:
+                try {
+                    dvd.setReleaseDate(change);
+                    break;
+                } catch (ParseException e) {
+                    return false;
+                }
+            case 2:
+                dvd.setmPAA(change);
+                break;
+            case 3:
+                dvd.setDirector(change);
+                break;
+            case 4:
+                dvd.setStudio(change);
+                break;
+            case 5:
+                dvd.setUserRating(change);
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
     @Override
@@ -46,7 +66,7 @@ public class DVDDaoFileImpl implements DVDLibDao {
             dvds.clear();
             while (sc.hasNextLine()) {
                 String currentLine = sc.nextLine();
-                dvds.add(new DVD(currentLine.split(regex)));
+                dvds.add(new DVD(currentLine.split(DELIMITER)));
             }
         } catch (Exception e) {
             return false;
@@ -62,9 +82,9 @@ public class DVDDaoFileImpl implements DVDLibDao {
             FileWriter writer = new FileWriter(file);
             file.createNewFile();
             for (DVD item : dvds) {
-                writer.write(item.getTitle() + regex + item.getReleaseDate() + regex +
-                        item.getmPAA() + regex + item.getDirector() + regex +
-                        item.getStudio() + regex + item.getUserRating() + regex);
+                writer.write(item.getTitle() + DELIMITER + item.getReleaseDate() + DELIMITER +
+                        item.getmPAA() + DELIMITER + item.getDirector() + DELIMITER +
+                        item.getStudio() + DELIMITER + item.getUserRating() + DELIMITER);
             }
             writer.flush();
             writer.close();
